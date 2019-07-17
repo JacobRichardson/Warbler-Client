@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/** 
+ * Warbler App.
+ */
 
-function App() {
+//Imports.
+import React from 'react';
+import { Provider } from 'react-redux';
+import { configStore } from '../store';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+//Invoke the config store method to get the initial store.
+const store = configStore();
+
+/** 
+ * Main app function.
+ */
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    /* beautify preserve:start */
+    <Provider store={store}>
+      <Router>
+        <div>
+          Hello world.
+        </div>
+      </Router>
+    </Provider>
+    /* beautify preserve:end */
   );
 }
 
+//Export the app.
 export default App;
