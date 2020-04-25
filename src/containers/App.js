@@ -7,6 +7,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { configStore } from '../store';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Navbar from './Navbar'
 
 //Invoke the config store method to get the initial store.
 const store = configStore();
@@ -21,8 +22,8 @@ const App = () => {
     /* beautify preserve:start */
     <Provider store={store}>
       <Router>
-        <div>
-          Hello world.
+        <div className="onboarding">
+          <Navbar />
         </div>
       </Router>
     </Provider>
