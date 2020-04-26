@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { configStore } from '../store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Navbar from './Navbar'
+import Main from './Main';
 
 //Invoke the config store method to get the initial store.
 const store = configStore();
@@ -24,6 +25,7 @@ const App = () => {
       <Router>
         <div className="onboarding">
           <Navbar />
+          <Main />
         </div>
       </Router>
     </Provider>
