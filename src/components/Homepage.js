@@ -9,21 +9,34 @@ import { Link } from 'react-router-dom';
 /** 
  * Stateless functional Homepage component.
  */
-const Homepage = () => {
+const Homepage = (props) => {
 
-    /** 
-     * Return JXS.
-    */
+    // Retrieve values from props.
+    const { currentUser } = props;
+
+    // If the user is not authenticated.
+    if (!currentUser.isAuthenticated) {
+
+        /** 
+         * Return JSX form not logged in homepage.
+        */
+        return (
+            <div className="home-hero">
+                <h1>What's Happening?</h1>
+                <h4>New to Warbler?</h4>
+                <Link to="/signup" className="btn btn-primary">
+                    Sign up here
+                </Link>
+            </div>
+
+        );
+    }
+
+    // Return JSX for logged in user.
     return (
-
-      <div className="home-hero">
-          <h1>What's Happening?</h1>
-          <h4>New to Warbler?</h4>
-          <Link to="/signup" className="btn btn-primary">
-              Sign up here
-          </Link>
-      </div>
-
+        <div>
+            <h1>You made it!</h1>
+        </div>
     );
 }
 
