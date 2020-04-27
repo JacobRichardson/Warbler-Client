@@ -4,6 +4,8 @@
 
 // Imports.
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { removeError } from '../store/actions/errors';
 
 /**
  * The AuthForm Component.
@@ -29,6 +31,16 @@ class AuthForm extends Component {
             password: "",
             profileImageUrl: "",
         };
+
+        // Retrieve values from props.
+        const { history, removeError } = props;
+
+        // Listen for any route changes.
+        history.listen(() => {
+
+            // Remove any errors.
+            removeError();
+        });
     }
 
     /**
@@ -62,6 +74,12 @@ class AuthForm extends Component {
 
             // TODO: Implement logic.
             console.log("LOGGED IN SUCCESSFULLY!");
+        })
+        // Catch the error.
+        .catch(e => {
+
+            // Don't do anything with it because it is being taken
+            // care on in the onAuth function.
         });
     }
 
@@ -70,13 +88,21 @@ class AuthForm extends Component {
         // Retrieve values from state.
         const { email, username, password, profileImageUrl } = this.state;
 
+        // Retrieve values from props.
+        const {signUp, heading, buttonText, errors} = this.props;
+
         // Return JSX.
         return (
             <div>
                 <div className="row justify-content-md-center text-center">
                     <div className="col-md-6">
                         <form onSubmit={this.handleSubmit}>
-                            <h2>{this.props.heading}</h2>
+                            <h2>{heading}</h2>
+                            {errors.message && (
+                                <div className="alert alert-danger">
+                                    {errors.message}
+                                </div>
+                            )}
                             <label htmlFor="email">Email:</label>
                             <input 
                                 className="form-control" 
@@ -95,7 +121,7 @@ class AuthForm extends Component {
                                 onChange={this.handleChange} 
                             />
                             {/* If signup prop is truthy. */}
-                            {this.props.signUp && (
+                            {signUp && (
                                 <div>
                                     <label htmlFor="username">Username:</label>
                                     <input 
@@ -118,7 +144,7 @@ class AuthForm extends Component {
                                 </div>
                             )}
                             <button type="submit"className="btn btn-primary btn-block btn-lg mt-4">
-                                {this.props.buttonText}
+                                {buttonText}
                             </button>
                         </form>
                     </div>
@@ -128,5 +154,21 @@ class AuthForm extends Component {
     }
 }
 
-// Export the AuthForm component.
-export default AuthForm;
+/**
+ * Maps redux state to props for the component.
+ * @param {Object} state The Redux state.
+ * @returns {Object} The props for the component.
+ */
+function mapStateToProps(state) {
+    return {
+        errors: state.errors
+    }
+}
+
+/** 
+ * Export the component connecting it to the redux store,
+ * mapping state to props, and mapping dispatch to props.
+ * This will automatically dispatch actions when the action
+ * creator is called.
+*/
+export default connect(mapStateToProps, { removeError })(AuthForm);
