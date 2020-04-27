@@ -72,14 +72,17 @@ class AuthForm extends Component {
         // Invoke on auth with the auth type and the state.
         this.props.onAuth(authType, this.state).then(() => {
 
-            // TODO: Implement logic.
-            console.log("LOGGED IN SUCCESSFULLY!");
+            // Retrieve history from the props.
+            const { history } = this.props;
+
+            // Push the '/' route to go to the homepage.
+            history.push('/');
         })
         // Catch the error.
-        .catch(e => {
+        .catch(() => {
 
-            // Don't do anything with it because it is being taken
-            // care on in the onAuth function.
+            // Simply return.
+            return;
         });
     }
 
