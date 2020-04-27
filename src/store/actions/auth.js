@@ -21,6 +21,24 @@ export function setCurrentUser(user) {
 }
 
 /**
+ * Logs a user out.
+ * @export {Function} 
+ * @returns {Function} A function to log the user out.
+ */
+export function logout() {
+
+  // Dispatch event.
+  return dispatch => {
+
+    // Clear the local storage. This removes the users JWT.
+    localStorage.clear();
+
+    // Set the current user to an empty user.
+    dispatch(setCurrentUser({}));
+  }
+}
+
+/**
  * Authorizes a user and dispatches an event
  * to the reducer.
  * @export {Function}
