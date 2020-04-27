@@ -1,0 +1,63 @@
+/** 
+ * Auth actions.
+ */
+
+// Imports
+import { apiCall } from '../../services/api';
+import { SET_CURRENT_USER } from '../actionTypes';
+
+/**
+ * Creates an action to be dispatched to the redux reducer.
+ * @export {Function} 
+ * @param {Object} user The user object.
+ * @returns {Object} The action to be dispatched to the reducer.
+ */
+export function setCurrentUser(user) {
+  return {
+    type: SET_CURRENT_USER,
+    user
+  };
+}
+
+/**
+ * Authorizes a user and dispatches an event
+ * to the reducer.
+ * @export {Function}
+ * @param {String} type The auth type.
+ * @param {Object} userData information about the user.
+ * @returns
+ */
+export function authUser(type, userData) {
+
+  // Return a dispatch function.
+  return dispatch => {
+
+    // Return a new promise.
+    return new Promise((resolve, reject) => {
+
+      // Return the api call of post with the user data.
+      return apiCall("post", `/api/auth/${type}`, userData)
+
+        // Once the api call is resolved.
+        .then(({ token, ...user }) => {
+
+          // Set the jwt token on the local storage.
+          localStorage.setItem("jwtToken", token);
+
+          // Dispatch an event with the set current user action creator 
+          // and the user from the api call.
+          dispatch(setCurrentUser(user));
+
+          // Resolve the promise indicating the API call succeeded.
+          resolve();
+        })
+
+        // Catch any errors.
+        .catch(error => {
+
+          // Reject the promise with the error.
+          reject(error);
+        });
+    });
+  }
+}
