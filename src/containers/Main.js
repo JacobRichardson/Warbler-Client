@@ -16,7 +16,7 @@ import { authUser } from '../store/actions/auth';
 const Main = props => {
 
     // Retrieve authUser from props.
-    const { authUser } = props;
+    const { authUser, currentUser } = props;
 
     /** 
      * Return JSX.
@@ -24,7 +24,7 @@ const Main = props => {
     return (
        <div className="container">
            <Switch>
-               <Route exact path="/" render={props => <Homepage {...props}  />} />
+               <Route exact path="/" render={props => <Homepage currentUser={currentUser} {...props}  />} />
                 <Route exact path="/signin" render={props => {
                     return (
                         <AuthForm 
