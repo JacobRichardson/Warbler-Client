@@ -5,6 +5,7 @@
 // Imports
 import { apiCall } from '../../services/api';
 import { SET_CURRENT_USER } from '../actionTypes';
+import { addError, removeError } from './errors';
 
 /**
  * Creates an action to be dispatched to the redux reducer.
@@ -48,6 +49,9 @@ export function authUser(type, userData) {
           // and the user from the api call.
           dispatch(setCurrentUser(user));
 
+          // Remove any previous errors.
+          dispatch(removeError());
+
           // Resolve the promise indicating the API call succeeded.
           resolve();
         })
@@ -55,7 +59,10 @@ export function authUser(type, userData) {
         // Catch any errors.
         .catch(error => {
 
-          // Reject the promise with the error.
+          // Dispatch add error.
+          dispatch(addError(error.message));
+
+          // Reject the promise.
           reject(error);
         });
     });
