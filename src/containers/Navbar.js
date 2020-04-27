@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import Logo from '../images/warbler-logo.png';
+import { logout } from '../store/actions/auth';
 
 /**
  * Navbar Component.
@@ -16,9 +17,26 @@ import Logo from '../images/warbler-logo.png';
 class Navbar extends Component {
 
     /**
+     * Handles logging a user out.
+     * @param {Event} e The event object.
+     * @memberof Navbar
+     */
+    logout = e => {
+
+        // Prevent the default action.
+        e.preventDefault();
+
+        // Invoke the logout function. 
+        this.props.logout();
+    }
+
+    /**
      * Render method to render the component.
      */
     render() {
+
+        // Retrieve values from props.
+        const { currentUser, logout } = this.props;
 
         // Return JSX.
         return (
@@ -29,14 +47,33 @@ class Navbar extends Component {
                             <img src={Logo} alt="Warbler Home" />
                         </Link>
                     </div>
-                    <ul className="nav navbar-nav navbar-right">
-                        <li>
-                            <Link to="/signup">Sign Up</Link>
-                        </li>
-                        <li>
-                            <Link to="/signin">Login</Link>
-                        </li>
-                    </ul>
+                    {/* If the user is authenticated. */}
+                    {currentUser.isAuthenticated ? 
+                        (
+                            <ul className="nav navbar-nav navbar-right">
+                                <li>
+                                    <Link to={`/users/${currentUser.id}/messages/new`} >
+                                        New Message
+                                    </Link>
+                                </li>
+                                <li>
+                                    <a onClick={logout}>Log out</a>
+                                </li>
+                            </ul>
+                        )
+                        // The user is not authenticated.
+                        : 
+                        (
+                            <ul className="nav navbar-nav navbar-right">
+                                <li>
+                                    <Link to="/signup">Sign Up</Link>
+                                </li>
+                                <li>
+                                    <Link to="/signin">Login</Link>
+                                </li>
+                            </ul>
+                        )
+                    }
                 </div>
             </nav>
         )
@@ -57,4 +94,4 @@ function mapStateToProps(state) {
 }
 
 // Export the component using the connect function, mapStateToProps, and the Navbar component.
-export default connect(mapStateToProps, null)(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);
