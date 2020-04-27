@@ -51,8 +51,18 @@ class AuthForm extends Component {
      */
     handleSubmit = e => {
 
-        // TODO: Implement this.
+        // Prevent the default action from happening.
+        e.preventDefault();
 
+        // Set the auth type based on the signup props.
+        const authType = this.props.signUp ? "signup" : "signin";
+
+        // Invoke on auth with the auth type and the state.
+        this.props.onAuth(authType, this.state).then(() => {
+
+            // TODO: Implement logic.
+            console.log("LOGGED IN SUCCESSFULLY!");
+        });
     }
 
     render() {
@@ -107,6 +117,9 @@ class AuthForm extends Component {
                                     />
                                 </div>
                             )}
+                            <button type="submit"className="btn btn-primary btn-block btn-lg mt-4">
+                                {this.props.buttonText}
+                            </button>
                         </form>
                     </div>
                 </div>
