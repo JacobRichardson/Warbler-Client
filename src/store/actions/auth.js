@@ -3,7 +3,7 @@
  */
 
 // Imports
-import { apiCall } from '../../services/api';
+import { apiCall, setTokenHeader } from '../../services/api';
 import { SET_CURRENT_USER } from '../actionTypes';
 import { addError, removeError } from './errors';
 
@@ -21,6 +21,17 @@ export function setCurrentUser(user) {
 }
 
 /**
+ * Wrapper function for setTokenHeader.
+ * @export {Function} The setAuthorizationToken function.
+ * @param {String} token The authorization token.
+ */
+export function setAuthorizationToken(token) {
+
+  // Call set token header with the token.
+  setTokenHeader(token);
+}
+
+/**
  * Logs a user out.
  * @export {Function} 
  * @returns {Function} A function to log the user out.
@@ -32,6 +43,9 @@ export function logout() {
 
     // Clear the local storage. This removes the users JWT.
     localStorage.clear();
+
+    // Remove the authorization token.
+    setAuthorizationToken(false);
 
     // Set the current user to an empty user.
     dispatch(setCurrentUser({}));
@@ -62,6 +76,9 @@ export function authUser(type, userData) {
 
           // Set the jwt token on the local storage.
           localStorage.setItem("jwtToken", token);
+
+          // Set the authorization token.
+          setAuthorizationToken(token);
 
           // Dispatch an event with the set current user action creator 
           // and the user from the api call.
