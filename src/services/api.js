@@ -6,6 +6,28 @@
 import axios from 'axios';
 
 /**
+ * This function handles setting the token header
+ * in order to allow requests to be authorized.
+ * @export {Function} The setTokenHeader function.
+ * @param {String} token The JWT authorization token.
+ */
+export function setTokenHeader(token) {
+
+  // If token is truthy.
+  if(token) {
+
+    // Set the token onto axios.
+    axios.defaults.headers.common['Authorization'] = `Bearer: ${token}`;
+  }
+  // Token is not truthy.
+  else {
+
+    // Remove the token.
+    delete axios.defaults.headers.common['Authorization']
+  }
+}
+
+/**
  * A wrapper around axios API call.
  * @param {String} method The HTTP verb to be used.
  * @param {String} path The route path / endpoint.
