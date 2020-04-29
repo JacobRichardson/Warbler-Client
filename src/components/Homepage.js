@@ -5,6 +5,7 @@
 // Imports.
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MessageTimeline from './MessageTimeline';
 
 /** 
  * Stateless functional Homepage component.
@@ -35,7 +36,7 @@ const Homepage = (props) => {
     // Return JSX for logged in user.
     return (
         <div>
-            <h1>You made it!</h1>
+            <MessageTimeline />
         </div>
     );
 }
