@@ -39,7 +39,7 @@ export function apiCall(method, path, data) {
   return new Promise((resolve, reject) => {
 
     // Return the axios call with the method, path, and data.
-    return axios[method](path, data).then(res => {
+    return axios[method.toLowerCase()](path, data).then(res => {
 
       // Resolve the promise with the data.
       return resolve(res.data);
