@@ -20,23 +20,25 @@ function MessageItem(props) {
 
     // Return JSX.
     return (
-        <div>
-            <img 
-                src={profileImageUrl || DefaultProfileImg} 
-                alt={username} 
-                height="100"
-                width="100" 
-                className="timeline-image"
-            />
-            <div className="message-area">
-                <Link to="/">@{username} &nbsp;</Link>
-                <span className="text-muted">
-                    <Moment className="text-muted" format="DD MM YYYY">
-                        {date}
-                    </Moment>
-                </span>
-                <p>{text}</p>
-            </div>
+        <div className="mb-3">
+            <li className="list-group-item">
+                <img 
+                    src={profileImageUrl || DefaultProfileImg} 
+                    alt={username} 
+                    height="100"
+                    width="100" 
+                    className="timeline-image"
+                />
+                <div className="message-area p-3">
+                    <Link to="/">@{username} &nbsp;</Link>
+                    <span className="text-muted">
+                        <Moment className="text-muted" format="DD MM YYYY">
+                            {date}
+                        </Moment>
+                    </span>
+                    <p>{text}</p>
+                </div>
+            </li>
         </div>
     )
 }
