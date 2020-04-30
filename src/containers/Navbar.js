@@ -52,7 +52,7 @@ class Navbar extends Component {
                         (
                             <ul className="nav navbar-nav navbar-right">
                                 <li>
-                                    <Link to={`/users/${currentUser.id}/messages/new`} >
+                                    <Link to={`/users/${currentUser.user.id}/messages/new`} >
                                         New Message
                                     </Link>
                                 </li>
