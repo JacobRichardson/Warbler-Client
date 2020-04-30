@@ -8,7 +8,9 @@ import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Homepage from '../components/Homepage';
 import AuthForm from '../components/AuthForm';
+import MessageForm from '../components/MessageForm';
 import { authUser } from '../store/actions/auth';
+import withAuth from '../hocs/withAuth';
 
 /** 
  * Stateless functional component.
@@ -46,6 +48,11 @@ const Main = props => {
                         />
                     );
                 }} />
+                {/* New Message Route */}
+                <Route
+                    path="/users/:id/messages/new"
+                    component={withAuth(MessageForm)}
+                />
            </Switch>
        </div>
     );
