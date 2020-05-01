@@ -69,3 +69,16 @@ ul.nav.navbar-nav li {
 #messages:not(.no-hover) .list-group-item:hover {
   background-color: #E6ECF0;
 }
+
+/* Message Form Styling */
+.message-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.message-form {
+  width: 75%;
+  max-width: 500px;
+}
