@@ -48,3 +48,38 @@ export function fetchMessages() {
     }
   }
 }
+
+/**
+ * This action handles creating a new message.
+ * @export {Function} The postNewMessage function.
+ * @param {String} text The new message text.
+ * @returns {Object} An empty object.
+ */
+export function postNewMessage(text) {
+
+  // Return an async dispatch function.
+  return async (dispatch, getState) => {
+
+    // Retrieve the current user from the state.
+    const { currentUser } = getState();
+
+    // Retrieve the id of the current user.
+    const id = currentUser.user.id;
+
+    try {
+
+      // Post the message to the api using the provided text.
+      await apiCall('post', `/api/users/${id}/messages`, { text });
+
+      // Return an empty object.
+      return {};
+
+    }
+    // Catch any errors.
+    catch (e) {
+
+      // Add the error.
+      dispatch(addError(e.message));
+    }
+  }
+}
