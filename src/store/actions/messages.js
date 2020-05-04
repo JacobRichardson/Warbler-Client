@@ -24,6 +24,49 @@ export function loadMessages(messages) {
 }
 
 /**
+ * Remove message action creator.
+ * @export {Function} The removeMessage function.
+ * @param {String} id The id of the message to be removed.
+ * @returns {Object} The action.
+ */
+export function removeMessage(id) {
+
+  // Return the action.
+  return {
+    type: REMOVE_MESSAGE,
+    id
+  }
+}
+
+/**
+ * Handles deleting a message from the backend.
+ * @export {Function} The deleteMessage function.
+ * @param {String} user_id The user's id.
+ * @param {String} message_id The message's id.
+ * @returns {Function} A function to delete a message.
+ */
+export function deleteMessage(user_id, message_id) {
+
+  // Return a dispatch function.
+  return async dispatch => {
+
+    try {
+
+      // Delete the message from the backend.
+      await apiCall("delete", `/api/users/${user_id}/messages/${message_id}`);
+
+      // Dispatch the remove message action with the message id.
+      dispatch(removeMessage(message_id));
+
+    } catch (e) {
+
+      // Add the error.
+      dispatch(addError(e.message));
+    }
+  }
+}
+
+/**
  * Handles fetching messages from the backend.
  * @export {Function} The fetchMessages function.
  * @returns {Function} A function to fetch messages.
