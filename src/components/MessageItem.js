@@ -16,7 +16,7 @@ import DefaultProfileImg from '../images/default-profile-image.jpg';
 function MessageItem(props) {
 
     // Retrieve values from props.
-    const { date, profileImageUrl, text, username } = props;
+    const { date, profileImageUrl, text, username, deleteMessage, isCorrectUser } = props;
 
     // Return JSX.
     return (
@@ -32,11 +32,14 @@ function MessageItem(props) {
                 <div className="message-area p-3">
                     <Link to="/">@{username} &nbsp;</Link>
                     <span className="text-muted">
-                        <Moment className="text-muted" format="DD MM YYYY">
+                    <Moment className="text-muted" format="DD MM YYYY">
                             {date}
-                        </Moment>
+                    </Moment>
                     </span>
                     <p>{text}</p>
+                    {isCorrectUser && (
+                        <button href="#" className="btn btn-danger" onClick={deleteMessage}>Delete</button>
+                    )}
                 </div>
             </li>
         </div>
