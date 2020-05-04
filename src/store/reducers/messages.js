@@ -17,8 +17,7 @@ function message(state = [], action) {
     case LOAD_MESSAGES:
       return [...action.messages];
     case REMOVE_MESSAGE:
-      // TODO: Implement.
-      break;
+      return state.filter(message => message._id !== action.id);
     default:
       return state;
   }
