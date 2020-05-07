@@ -3,7 +3,7 @@
  */
 
 //Imports.
-import { SET_CURRENT_USER } from "../actionTypes";
+import { SET_CURRENT_USER } from "../action-types";
 
 //Current user's default state.
 const DEFAULT_STATE = {

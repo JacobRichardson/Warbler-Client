@@ -3,7 +3,7 @@
  */
 
 // Imports
-import { LOAD_MESSAGES, REMOVE_MESSAGE } from '../actionTypes';
+import { LOAD_MESSAGES, REMOVE_MESSAGE } from '../action-types';
 
 /**
  * Handles modifying state in regards to messages.
