@@ -4,7 +4,7 @@
 
 // Imports
 import { apiCall, setTokenHeader } from '../../services/api';
-import { SET_CURRENT_USER } from '../actionTypes';
+import { SET_CURRENT_USER } from '../action-types';
 import { addError, removeError } from './errors';
 
 /**

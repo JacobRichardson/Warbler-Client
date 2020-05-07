@@ -3,7 +3,7 @@
  */
 
 // Imports.
-import { ADD_ERROR, REMOVE_ERROR } from '../actionTypes';
+import { ADD_ERROR, REMOVE_ERROR } from '../action-types';
 
 /**
  * Add error action creator.

@@ -5,35 +5,50 @@
 // Imports.
 import { apiCall } from '../../services/api';
 import { addError } from './errors';
-import { LOAD_MESSAGES, REMOVE_MESSAGE } from '../action-types';
+import { LOAD_FOLLOWEES, LOAD_FOLLOWERS, REMOVE_FOLLOWEE } from '../action-types';
 
 
 /**
- * Load Messages action creator.
- * @export {Function} The loadMessages function.
- * @param {Array<Objects>} messages The messages.
- * @returns
+ * Load followees action creator.
+ * @export {Function} The loadFollowees function.
+ * @param {Array<Object>} followees The followees.
+ * @returns {Object} The action.
  */
-export function loadMessages(messages) {
+export function loadFollowees(followees) {
 
   // Return the action.
   return {
-    type: LOAD_MESSAGES,
-    messages
+    type: LOAD_FOLLOWEES,
+    followees
   }
 }
 
 /**
- * Remove message action creator.
- * @export {Function} The removeMessage function.
- * @param {String} id The id of the message to be removed.
+ * Load followers action creator.
+ * @export {Function} The loadFollowees function.
+ * @param {Array<Object>} followers The followers.
  * @returns {Object} The action.
  */
-export function removeMessage(id) {
+export function loadFollowers(followers) {
 
   // Return the action.
   return {
-    type: REMOVE_MESSAGE,
+    type: LOAD_FOLLOWERS,
+    followers
+  }
+}
+
+/**
+ * Remove followee action creator.
+ * @export {Function} The removeFollowee function.
+ * @param {String} id The id of the followee.
+ * @returns {Object} The action.
+ */
+export function removeFollowee(id) {
+
+  // Return the action.
+  return {
+    type: REMOVE_FOLLOWEE,
     id
   }
 }
@@ -50,13 +65,10 @@ export function deleteMessage(user_id, message_id) {
   // Return a dispatch function.
   return async dispatch => {
 
+
     try {
 
-      // Delete the message from the backend.
-      await apiCall("delete", `/api/users/${user_id}/messages/${message_id}`);
-
-      // Dispatch the remove message action with the message id.
-      dispatch(removeMessage(message_id));
+      // TODO: Implement.
 
     } catch (e) {
 
@@ -98,7 +110,7 @@ export function fetchMessages() {
  * @param {String} text The new message text.
  * @returns {Object} An empty object.
  */
-export function postNewMessage(text) {
+export function followUser(text) {
 
   // Return an async dispatch function.
   return async (dispatch, getState) => {
@@ -111,11 +123,7 @@ export function postNewMessage(text) {
 
     try {
 
-      // Post the message to the api using the provided text.
-      await apiCall('post', `/api/users/${id}/messages`, { text });
-
-      // Return an empty object.
-      return {};
+      // TODO: Implement.
 
     }
     // Catch any errors.
