@@ -94,6 +94,8 @@ export function authUser(type, userData) {
         // Catch any errors.
         .catch(error => {
 
+          error = error || {}
+
           // Dispatch add error.
           dispatch(addError(error.message));
 
