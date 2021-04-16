@@ -5,7 +5,7 @@
 // Imports.
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchMessages, deleteMessage } from '../store/actions/messages';
+import { fetchMessages, deleteMessage, likeMessage, unlikeMessage } from '../store/actions/messages';
 import MessageItem from "../components/MessageItem";
 
 /**
@@ -40,7 +40,7 @@ class MessageList extends Component {
     render() {
 
         // Retrieve the messages from props.
-        const { messages, deleteMessage, currentUserId } = this.props;
+        const { messages, deleteMessage, likeMessage, unlikeMessage, currentUserId } = this.props;
 
         // Create a message list.
         let messageList = messages.map(m => (
@@ -50,7 +50,11 @@ class MessageList extends Component {
                 text={m.text}
                 username={m.user.username}
                 profileImageUrl={m.user.profileImageUrl}
+                likes={m.likes}
+                currentUserId={currentUserId}
                 deleteMessage={deleteMessage.bind(this, m.user._id, m._id)}
+                likeMessage={likeMessage.bind(this, m)}
+                unlikeMessage={unlikeMessage.bind(this, m)}
                 isCorrectUser={currentUserId === m.user._id}
             />
         ));
@@ -81,4 +85,4 @@ function mapStateToProps(state) {
 }
 
 // Export the connect mapping the state to props and passing in dispatch actions.
-export default connect(mapStateToProps, { fetchMessages, deleteMessage })(MessageList);
+export default connect(mapStateToProps, { fetchMessages, deleteMessage, likeMessage, unlikeMessage })(MessageList);
