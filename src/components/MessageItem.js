@@ -16,7 +16,7 @@ import DefaultProfileImg from '../images/default-profile-image.jpg';
 function MessageItem(props) {
 
     // Retrieve values from props.
-    const { date, profileImageUrl, text, username, likes, currentUserId, deleteMessage, likeMessage, unlikeMessage, isCorrectUser } = props;
+    const { date, profileImageUrl, text, username, likes, messageCreatorId, currentUserId, deleteMessage, likeMessage, unlikeMessage, isCorrectUser } = props;
 
     // Return JSX.
     return (
@@ -30,7 +30,7 @@ function MessageItem(props) {
                     className="timeline-image"
                 />
                 <div className="message-area p-3">
-                    <Link to="/">@{username} &nbsp;</Link>
+                    <Link to={"/users/" + messageCreatorId}>@{username} &nbsp;</Link>
                     <span className="text-muted">
                     <Moment className="text-muted" format="DD MM YYYY">
                             {date}

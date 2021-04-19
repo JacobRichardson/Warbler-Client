@@ -51,6 +51,7 @@ class MessageList extends Component {
                 username={m.user.username}
                 profileImageUrl={m.user.profileImageUrl}
                 likes={m.likes}
+                messageCreatorId={m.user._id}
                 currentUserId={currentUserId}
                 deleteMessage={deleteMessage.bind(this, m.user._id, m._id)}
                 likeMessage={likeMessage.bind(this, m)}

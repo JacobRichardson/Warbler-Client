@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Homepage from '../components/Homepage';
 import AuthForm from '../components/AuthForm';
 import MessageForm from '../components/MessageForm';
+import Profile from '../containers/Profile';
 import { authUser } from '../store/actions/auth';
 import withAuth from '../hocs/withAuth';
 
@@ -52,6 +53,11 @@ const Main = props => {
                 <Route
                     path="/users/:id/messages/new"
                     component={withAuth(MessageForm)}
+                />
+                {/* Profile Page Route */}
+                <Route
+                    path="/users/:id"
+                    component={withAuth(Profile)}
                 />
            </Switch>
        </div>
