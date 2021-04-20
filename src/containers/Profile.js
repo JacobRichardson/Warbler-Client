@@ -7,8 +7,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser } from '../store/actions/user';
 import { fetchMessages, deleteMessage, likeMessage, unlikeMessage } from '../store/actions/messages';
+import { followUser, unfollowUser } from '../store/actions/user';
 import DefaultProfileImg from '../images/default-profile-image.jpg';
 import MessageItem from "../components/MessageItem";
+import ProfileHeader from '../components/ProfileHeader';
 
 /**
  * The Profile Component.
@@ -45,7 +47,7 @@ class Profile extends Component {
     render() {
 
         // Retrieve information from props.
-        const { user, deleteMessage, likeMessage, unlikeMessage, currentUserId} = this.props;
+        const { user, deleteMessage, likeMessage, unlikeMessage, followUser, unfollowUser, currentUserId} = this.props;
 
         let messages = this.props.messages.filter(m => m.user._id == user._id);
 
@@ -67,10 +69,25 @@ class Profile extends Component {
             />
         ));
 
+        // Declare the profile header component.
+        let profileHeaderComponent;
+    
+        // If the user has a followees property.
+        if (user.followees) {
+
+            // Pass in the props for the profile header component.
+            profileHeaderComponent =
+                <ProfileHeader
+                user={user}
+                followUser={followUser}
+                unfollowUser={unfollowUser}
+                currentUserId={currentUserId}
+            />
+        }
 
         // Return JSX.
         return (
-            <div>
+            <div className="mt-2">
                 <img 
                     src={user.profileImageUrl || DefaultProfileImg} 
                     alt={user.username} 
@@ -78,9 +95,7 @@ class Profile extends Component {
                     width="300" 
                     className="img-fluid"
                 />
-                <p>
-                    <a href="#">@{user.username}</a>
-                </p>
+                {profileHeaderComponent}
                 {messageList}
             </div>
 
@@ -102,6 +117,6 @@ function mapStateToProps(state) {
 }
 
 // Export the connect mapping the state to props and passing in dispatch actions.
-export default connect(mapStateToProps, { fetchUser, fetchMessages, deleteMessage, likeMessage, unlikeMessage })(Profile);
+export default connect(mapStateToProps, { fetchUser, fetchMessages, deleteMessage, likeMessage, unlikeMessage, unfollowUser, followUser })(Profile);
 
 

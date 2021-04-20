@@ -10,7 +10,7 @@ import { LOAD_USER } from '../action-types';
  * @param {Array} [state=[]] The state.
  * @param {Object} action The action object.
  */
-function user(state = [], action) {
+function user(state = {}, action) {
 
   // Switch on the action type.
   switch (action.type) {
